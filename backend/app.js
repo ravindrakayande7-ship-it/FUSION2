@@ -27,9 +27,8 @@ dotenv.config();
 
 const app = express();
 
-// Trust proxy configuration:
-// In production behind reverse proxies (Cloud Run, Render, Nginx), trust the first hop.
-// Otherwise disabled in local development.
+
+
 const trustProxySetting =
   process.env.TRUST_PROXY !== undefined
     ? process.env.TRUST_PROXY === 'true'
