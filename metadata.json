@@ -1,0 +1,6 @@
+{
+  "name": "FUSION – Coffee Shop Management System",
+  "description": "Complete coffee shop management system for billing (POS), inventory, kitchen display, orders, staff, attendance, expenses, and analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
