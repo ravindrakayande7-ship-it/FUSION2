@@ -1,4 +1,4 @@
-import { Order } from '../models/Order.js';
+﻿import { Order } from '../models/Order.js';
 import { Inventory } from '../models/Inventory.js';
 import { Product } from '../models/Product.js';
 import { Customer } from '../models/Customer.js';
@@ -479,7 +479,7 @@ export const createOrder = async (req, res, next) => {
                   $inc: { stock: -neededQty },
                   $set: { lastUpdated: new Date().toISOString().split('T')[0] },
                 },
-                { session, new: true }
+                { session, returnDocument: 'after' }
               );
 
               if (!updated) {
@@ -581,7 +581,7 @@ export const createOrder = async (req, res, next) => {
               $inc: { stock: -neededQty },
               $set: { lastUpdated: new Date().toISOString().split('T')[0] },
             },
-            { new: true }
+            { returnDocument: 'after' }
           );
 
           if (!updated) {
@@ -840,7 +840,7 @@ export const cancelOrder = async (req, res, next) => {
                 notes: `${targetOrder.notes ? targetOrder.notes + ' | ' : ''}Cancelled: ${reason}`,
               },
             },
-            { session, new: true }
+            { session, returnDocument: 'after' }
           );
 
           if (atomicOrder) {
@@ -883,7 +883,7 @@ export const cancelOrder = async (req, res, next) => {
                   notes: `${targetOrder.notes ? targetOrder.notes + ' | ' : ''}Cancelled: ${reason}`,
                 },
               },
-              { session, new: true }
+              { session, returnDocument: 'after' }
             );
             await session.commitTransaction();
             await session.endSession();
@@ -934,7 +934,7 @@ export const cancelOrder = async (req, res, next) => {
             notes: `${targetOrder.notes ? targetOrder.notes + ' | ' : ''}Cancelled: ${reason}`,
           },
         },
-        { new: true }
+        { returnDocument: 'after' }
       );
 
       if (atomicOrder) {
@@ -973,7 +973,7 @@ export const cancelOrder = async (req, res, next) => {
               notes: `${targetOrder.notes ? targetOrder.notes + ' | ' : ''}Cancelled: ${reason}`,
             },
           },
-          { new: true }
+          { returnDocument: 'after' }
         );
 
         if (!justCancel) {

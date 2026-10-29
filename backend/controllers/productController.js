@@ -1,4 +1,4 @@
-import { Product } from '../models/Product.js';
+﻿import { Product } from '../models/Product.js';
 import { fallbackStore } from '../services/storageFallback.js';
 import mongoose from 'mongoose';
 
@@ -151,7 +151,7 @@ export const updateProduct = async (req, res, next) => {
       const product = await Product.findOneAndUpdate(
         { $or: [{ id }, { _id: mongoose.isValidObjectId(id) ? id : null }] },
         updates,
-        { new: true, runValidators: true }
+        { returnDocument: 'after', runValidators: true }
       );
       if (!product) {
         return res.status(404).json({ success: false, message: 'Product not found' });

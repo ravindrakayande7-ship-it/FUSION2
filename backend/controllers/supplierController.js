@@ -1,4 +1,4 @@
-import { Supplier } from '../models/Supplier.js';
+﻿import { Supplier } from '../models/Supplier.js';
 import { fallbackStore } from '../services/storageFallback.js';
 import mongoose from 'mongoose';
 
@@ -74,7 +74,7 @@ export const updateSupplier = async (req, res, next) => {
       const supplier = await Supplier.findOneAndUpdate(
         { $or: [{ id }, { _id: mongoose.isValidObjectId(id) ? id : null }] },
         updates,
-        { new: true, runValidators: true }
+        { returnDocument: 'after', runValidators: true }
       );
       if (!supplier) {
         return res.status(404).json({ success: false, message: 'Supplier not found' });

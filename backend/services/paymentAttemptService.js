@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+﻿import mongoose from 'mongoose';
 import { Inventory } from '../models/Inventory.js';
 import { Product } from '../models/Product.js';
 import { Settings } from '../models/Settings.js';
@@ -175,7 +175,7 @@ const updateAttempt = async (orderId, staffId, filter, update) => {
     return PaymentAttempt.findOneAndUpdate(
       { razorpayOrderId: orderId, staffId, ...filter },
       update,
-      { new: true }
+      { returnDocument: 'after' }
     ).lean();
   }
   const attempt = fallbackStore.paymentAttempts.find(
@@ -242,7 +242,7 @@ export const consumePaymentAttempt = async ({ orderId, paymentId, staffId, sessi
     return PaymentAttempt.findOneAndUpdate(
       { razorpayOrderId: orderId, razorpayPaymentId: paymentId, staffId, status: 'verified' },
       { $set: { status: 'consumed', consumedAt: new Date() } },
-      { new: true, session }
+      { returnDocument: 'after', session }
     );
   }
   const attempt = fallbackStore.paymentAttempts.find(

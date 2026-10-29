@@ -1,4 +1,4 @@
-import { Customer } from '../models/Customer.js';
+﻿import { Customer } from '../models/Customer.js';
 import { Order } from '../models/Order.js';
 import { fallbackStore } from '../services/storageFallback.js';
 import mongoose from 'mongoose';
@@ -131,7 +131,7 @@ export const updateCustomer = async (req, res, next) => {
       const customer = await Customer.findOneAndUpdate(
         { $or: [{ id }, { _id: mongoose.isValidObjectId(id) ? id : null }] },
         updates,
-        { new: true, runValidators: true }
+        { returnDocument: 'after', runValidators: true }
       );
       if (!customer) {
         return res.status(404).json({ success: false, message: 'Customer not found' });

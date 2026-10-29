@@ -1,4 +1,4 @@
-import { Inventory } from '../models/Inventory.js';
+﻿import { Inventory } from '../models/Inventory.js';
 import { Expense } from '../models/Expense.js';
 import { fallbackStore } from '../services/storageFallback.js';
 import mongoose from 'mongoose';
@@ -147,7 +147,7 @@ export const updateInventoryItem = async (req, res, next) => {
       const item = await Inventory.findOneAndUpdate(
         { $or: [{ id }, { _id: mongoose.isValidObjectId(id) ? id : null }] },
         updates,
-        { new: true, runValidators: true }
+        { returnDocument: 'after', runValidators: true }
       );
       if (!item) {
         return res.status(404).json({ success: false, message: 'Ingredient not found' });

@@ -1,4 +1,4 @@
-import { Staff } from '../models/Staff.js';
+﻿import { Staff } from '../models/Staff.js';
 import { fallbackStore } from '../services/storageFallback.js';
 import mongoose from 'mongoose';
 
@@ -83,7 +83,7 @@ export const updateStaff = async (req, res, next) => {
       const staffMember = await Staff.findOneAndUpdate(
         { $or: [{ id }, { _id: mongoose.isValidObjectId(id) ? id : null }] },
         updates,
-        { new: true, runValidators: true }
+        { returnDocument: 'after', runValidators: true }
       );
       if (!staffMember) {
         return res.status(404).json({ success: false, message: 'Staff member not found' });
